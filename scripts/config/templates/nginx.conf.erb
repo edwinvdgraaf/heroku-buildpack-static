@@ -66,6 +66,10 @@ http {
     }
   <% end %>
 
+  if ($host ~* ^www\.(.*)$) {
+    return 301 $scheme://$1;
+  } 
+
   <% if https_only %>
     if ($http_x_forwarded_proto != "https") {
       return 301 https://$host$request_uri;
